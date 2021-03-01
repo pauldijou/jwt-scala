@@ -45,15 +45,15 @@ claim.expiresAt(1431520421)
 // res11: JwtClaim = pdi.jwt.JwtClaim@c7898aca
 // Right now! (the token is directly invalid...)
 claim.expiresNow
-// res12: JwtClaim = pdi.jwt.JwtClaim@f272beb4
+// res12: JwtClaim = pdi.jwt.JwtClaim@4f8e597b
 
 // Set the beginning of the token (aka the "not before" attribute)
 // 5 seconds ago
 claim.startsIn(-5)
-// res13: JwtClaim = pdi.jwt.JwtClaim@1d7d6ec5
+// res13: JwtClaim = pdi.jwt.JwtClaim@a77e411e
 // At a specific timestamp (in seconds)
 claim.startsAt(1431520421)
-// res14: JwtClaim = pdi.jwt.JwtClaim@e3b7161a
+// res14: JwtClaim = pdi.jwt.JwtClaim@6f1c66fe
 // Right now!
 claim = claim.startsNow
 
@@ -61,10 +61,10 @@ claim = claim.startsNow
 // (you should always use claim.issuedNow, but I let you do otherwise if needed)
 // 5 seconds ago
 claim.issuedIn(-5)
-// res16: JwtClaim = pdi.jwt.JwtClaim@14448837
+// res16: JwtClaim = pdi.jwt.JwtClaim@26c0455f
 // At a specific timestamp (in seconds)
 claim.issuedAt(1431520421)
-// res17: JwtClaim = pdi.jwt.JwtClaim@6d3e2242
+// res17: JwtClaim = pdi.jwt.JwtClaim@c1d5e37f
 // Right now!
 claim = claim.issuedNow
 
@@ -78,5 +78,5 @@ claim.isValid("Me", "You")
 
 // Let's stringify the final version
 claim.toJson
-// res21: String = "{\"iss\":\"Me\",\"sub\":\"Something\",\"aud\":\"You\",\"exp\":1614611236,\"nbf\":1614611231,\"iat\":1614611231,\"jti\":\"42\",\"user\":1,\"key1\":\"value1\",\"key2\":true,\"key3\":3,\"key4\":[1,2],\"key5\":{\"key5.1\":\"Subkey\"}}"
+// res21: String = "{\"iss\":\"Me\",\"sub\":\"Something\",\"aud\":\"You\",\"exp\":1614611832,\"nbf\":1614611827,\"iat\":1614611827,\"jti\":\"42\",\"user\":1,\"key1\":\"value1\",\"key2\":true,\"key3\":3,\"key4\":[1,2],\"key5\":{\"key5.1\":\"Subkey\"}}"
 ```
