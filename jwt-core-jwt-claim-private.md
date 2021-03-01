@@ -43,5 +43,13 @@ You can then use the same decodeAll method as you would before, now with your fu
 import scala.util.Try
 // this example chose to use JwtJson4s, but any Json implementation would work the same
 val token: String = Jwt.encode("""{"user":"someone", "iss": "me"}""");
+// token: String = "eyJhbGciOiJub25lIn0.eyJ1c2VyIjoic29tZW9uZSIsICJpc3MiOiAibWUifQ.";
 val decoded: Try[(JwtHeader, JwtPrivateClaim, String)] = JwtJson4sPrivate.decodeAll(token)
+// decoded: Try[(JwtHeader, JwtPrivateClaim, String)] = Success(
+//   (
+//     pdi.jwt.JwtHeader@71da1600,
+//     JwtPrivateClaim(Some("someone"), pdi.jwt.JwtClaim@f360dccd),
+//     ""
+//   )
+// )
 ```

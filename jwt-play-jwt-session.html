@@ -14,14 +14,22 @@
 <span class="k">import</span> <span class="nn">play.api.Configuration</span>
 
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">clock</span><span class="k">:</span> <span class="kt">Clock</span> <span class="o">=</span> <span class="nv">Clock</span><span class="o">.</span><span class="py">systemUTC</span>
+<span class="c1">// clock: Clock = SystemClock[Z]</span>
 
 <span class="c1">//In a real Play! App this should normally be injected in the constructor with @Inject()</span>
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">conf</span><span class="k">:</span> <span class="kt">Configuration</span> <span class="o">=</span> <span class="nv">Configuration</span><span class="o">.</span><span class="py">reference</span>
+<span class="c1">// conf: Configuration = Configuration(</span>
+<span class="c1">//   Config(SimpleConfigObject({"akka":{"actor":{"allow-java-serialization":"off","creation-timeout":"20s","debug":{"autoreceive":"off","event-stream":"off","fsm":"off","lifecycle":"off","receive":"off","router-misconfiguration":"off","unhandled":"off"},"default-blocking-io-dispatcher":{"executor":"thread-pool-executor","thread-pool-executor":{"fixed-pool-size":16},"throughput":1,"type":"Dispatcher"},"default-dispatcher":{"affinity-pool-executor":{"fair-work-distribution":{"threshold":128},"idle-cpu-level":5,"parallelism-factor":0.8,"parallelism-max":64,"parallelism-min":4,"queue-selector":"akka.dispatch.affinity.FairDistributionHashCache","rejection-handler":"akka.dispatch.affinity.ThrowOnOverflowRejectionHandler","task-queue-size":512},"attempt-teamwork":"on","default-executor":{"fallback":"fork-join-executor"},"executor":"default-executor","fork-join-executor":{"parallelism-factor":1,"parallelism-max":64,"parallelism-min":8,"task-peeking-mode":"FIFO"},"mailbox-requirement":"","shutdown-timeout":"1s","thread-pool-executor":{"allow-core-timeout":"on","core-pool-size-factor":3,"core-pool-size-max":64,"core-pool-size-min":8,"fixed-pool-size":"off","keep-alive-time":"60s","max-pool-size-factor":3,"max-pool-size-max":64,"max-pool-size-min":8,"task-queue-size":-1,"task-queue-type":"linked"},"throughput":5,"throughput-deadline-time":"0ms","type":"Dispatcher"},"default-mailbox":{"mailbox-capacity":1000,"mailbox-push-timeout-time":"10s","mailbox-type":"akka.dispatch.UnboundedMailbox","stash-capacity":-1},"deployment":{"/IO-DNS/async-dns":{"mailbox":"unbounded","nr-of-instances":1,"router":"round-robin-pool"},"/IO-DNS/inet-address":{"mailbox":"unbounded","nr-of-instances":4,"router":"consistent-hashing-pool"},"/IO-DNS/inet-address/*":{"dispatcher":"akka.actor.default-blocking-io-dispatcher"},"default":{"dispatcher":"","mailbox":"","nr-of-instances":1,"optimal-size-exploring-resizer":{"action-interval":"5s","chance-of-exploration":0.4,"chance-of-ramping-down-when-full":0.2,"downsize-after-underutilized-for":"72h","downsize-ratio":0.8,"enabled":"off","explore-step-size":0.1,"lower-bound":1,"optimization-range":16,"upper-bound":10,"weight-of-latest-metric":0.5},"resizer":{"backoff-rate":0.1,"backoff-threshold":0.3,"enabled":"off","lower-bound":1,"messages-per-resize":10,"pressure-threshold":1,"rampup-rate":0.2,"upper-bound":10},"routees":{"paths":[]},"router":"from-code","tail-chopping-router":{"interval":"10 milliseconds"},"virtual-nodes-factor":10,"within":"5 seconds"}},"guardian-supervisor-strategy":"akka.actor.DefaultSupervisorStrategy","internal-dispatcher":{"executor":"fork-join-executor","fork-join-executor":{"parallelism-factor":1,"parallelism-max":64,"parallelism-min":4},"throughput":5,"type":"Dispatcher"},"mailbox":{"bounded-control-aware-queue-based":{"mailbox-type":"akka.dispatch.BoundedControlAwareMailbox"},"bounded-deque-based":{"mailbox-type":"akka.dispatch.BoundedDequeBasedMailbox"},"bounded-queue-based":{"mailbox-type":"akka.dispatch.BoundedMailbox"},"logger-queue":{"mailbox-type":"akka.event.LoggerMailboxType"},"requirements":{"akka.dispatch.BoundedControlAwareMessageQueueSemantics":"akka.actor.mailbox.bounded-control-aware-queue-based","akka.dispatch.BoundedDequeBasedMessageQueueSemantics":"akka.actor.mailbox.bounded-deque-based","akka.dispatch.BoundedMessageQueueSemantics":"akka.actor.mailbox.bounded-queue-based","akka.dispatch.ControlAwareMessageQueueSemantics":"akka.actor.mailbox.unbounded-control-aware-queue-based","akka.dispatch.DequeBasedMessageQueueSemantics":"akka.actor.mailbox.unbounded-deque-based","akka.dispatch.MultipleConsumerSemantics":"akka.actor.mailbox.unbounded-queue-based","akka.dispatch.UnboundedControlAwareMessageQueueSemantics":"akka.actor.mailbox.unbounded-control-aware-queue-based","akka.dispatch.UnboundedDequeBasedMessageQueueSemantics":"ak...</span>
 
 <span class="c1">// Let's create a session, it will automatically assign a default header. No</span>
 <span class="c1">// In your app, the default header would be generated from "application.conf" file</span>
 <span class="c1">// but here, it will just use the default values (which are all empty)</span>
 <span class="k">var</span> <span class="n">session</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span>
+<span class="c1">// session: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(Map()),</span>
+<span class="c1">//   ""</span>
+<span class="c1">// )</span>
 
 <span class="c1">// We can add a (key, value)</span>
 <span class="n">session</span> <span class="k">=</span> <span class="n">session</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
@@ -37,16 +45,24 @@
 
 <span class="c1">// We can access a specific key</span>
 <span class="nv">session</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"user"</span><span class="o">)</span>
+<span class="c1">// res4: Option[play.api.libs.json.JsValue] = Some(JsNumber(1))</span>
 
 <span class="c1">// Test if the session is empty or not</span>
 <span class="c1">// (it is not here since we have several keys in the claimData)</span>
 <span class="nv">session</span><span class="o">.</span><span class="py">isEmpty</span>
+<span class="c1">// res5: Boolean = false</span>
 
 <span class="c1">// Serializing the session is the same as encoding it as a JSON Web Token</span>
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">serialize</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE0MzE1MjA0MjEsInVzZXIiOjF9.0nOuCxfVTiJEOwB99ruZ0a5iP5HumhG5xu0ccKoonSM"</span>
 
 <span class="c1">// You can create a JwtSession from a token of course</span>
 <span class="nv">JwtSession</span><span class="o">.</span><span class="py">deserialize</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+<span class="c1">// res6: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(Map("nbf" -&gt; JsNumber(1431520421), "user" -&gt; JsNumber(1))),</span>
+<span class="c1">//   "0nOuCxfVTiJEOwB99ruZ0a5iP5HumhG5xu0ccKoonSM"</span>
+<span class="c1">// )</span>
 
 <span class="c1">// You could refresh the session to set its expiration in a few seconds from now</span>
 <span class="c1">// but you need to set "session.maxAge" in your "application.conf" and since this</span>
@@ -65,12 +81,23 @@
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">formatUser</span> <span class="k">=</span> <span class="nv">Json</span><span class="o">.</span><span class="py">format</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span>
+<span class="c1">// formatUser: play.api.libs.json.OFormat[User] = play.api.libs.json.OFormat$$anon$3@7ed0c961</span>
 
 <span class="c1">// Next, adding it to a new session</span>
 <span class="k">val</span> <span class="nv">session2</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="nc">User</span><span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="s">"Paul"</span><span class="o">))</span>
+<span class="c1">// session2: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(</span>
+<span class="c1">//     Map(</span>
+<span class="c1">//       "user" -&gt; JsObject(Map("id" -&gt; JsNumber(42), "name" -&gt; JsString("Paul")))</span>
+<span class="c1">//     )</span>
+<span class="c1">//   ),</span>
+<span class="c1">//   ""</span>
+<span class="c1">// )</span>
 
 <span class="c1">// Finally, accessing it</span>
 <span class="nv">session2</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+<span class="c1">// res8: Option[User] = Some(User(42L, "Paul"))</span>
 </code></pre></div></div>
 
 <h2 id="play-requestheader">Play RequestHeader</h2>
@@ -85,15 +112,31 @@
 
 <span class="c1">// Default JwtSession</span>
 <span class="nc">FakeRequest</span><span class="o">().</span><span class="py">jwtSession</span>
+<span class="c1">// res9: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(Map()),</span>
+<span class="c1">//   ""</span>
+<span class="c1">// )</span>
 
 <span class="c1">// What about some headers?</span>
 <span class="c1">// (the default header for a JSON Web Token is "Authorization" and it should be prefixed by "Bearer ")</span>
 <span class="k">val</span> <span class="nv">request</span> <span class="k">=</span> <span class="nc">FakeRequest</span><span class="o">().</span><span class="py">withHeaders</span><span class="o">((</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Bearer "</span> <span class="o">+</span> <span class="nv">session2</span><span class="o">.</span><span class="py">serialize</span><span class="o">))</span>
+<span class="c1">// request: FakeRequest[play.api.mvc.AnyContentAsEmpty.type] = GET /</span>
 <span class="nv">request</span><span class="o">.</span><span class="py">jwtSession</span>
+<span class="c1">// res10: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(</span>
+<span class="c1">//     Map(</span>
+<span class="c1">//       "user" -&gt; JsObject(Map("id" -&gt; JsNumber(42), "name" -&gt; JsString("Paul")))</span>
+<span class="c1">//     )</span>
+<span class="c1">//   ),</span>
+<span class="c1">//   "P8vGvJMv8aTU8vxiP5b1U-IHjZpFpGid46UEMszKW2I"</span>
+<span class="c1">// )</span>
 
 <span class="c1">// It means you can directly read case classes from the session!</span>
 <span class="c1">// And that's pretty cool</span>
 <span class="nv">request</span><span class="o">.</span><span class="py">jwtSession</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+<span class="c1">// res11: Option[User] = Some(User(42L, "Paul"))</span>
 </code></pre></div></div>
 
 <h2 id="play-result">Play Result</h2>
@@ -101,12 +144,29 @@
 <p>There are also implicit helpers around <code class="language-plaintext highlighter-rouge">Result</code> to help you manipulate the session inside it.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">implRequest</span> <span class="k">=</span> <span class="n">request</span>
+<span class="c1">// implRequest: FakeRequest[play.api.mvc.AnyContentAsEmpty.type] = GET /</span>
 
 <span class="c1">// Let's begin by creating a Result</span>
 <span class="k">var</span> <span class="n">result</span><span class="k">:</span> <span class="kt">play.api.mvc.Result</span> <span class="o">=</span> <span class="nv">play</span><span class="o">.</span><span class="py">api</span><span class="o">.</span><span class="py">mvc</span><span class="o">.</span><span class="py">Results</span><span class="o">.</span><span class="py">Ok</span>
+<span class="c1">// result: play.api.mvc.Result = Result(</span>
+<span class="c1">//   200, Map(),</span>
+<span class="c1">//   Strict(ByteString(), None),</span>
+<span class="c1">//   None,</span>
+<span class="c1">//   None,</span>
+<span class="c1">//   List()</span>
+<span class="c1">// )</span>
 
 <span class="c1">// We can already get a JwtSession from our implicit RequestHeader</span>
 <span class="nv">result</span><span class="o">.</span><span class="py">jwtSession</span>
+<span class="c1">// res12: JwtSession = JwtSession(</span>
+<span class="c1">//   JsObject(Map("typ" -&gt; JsString("JWT"), "alg" -&gt; JsString("HS256"))),</span>
+<span class="c1">//   JsObject(</span>
+<span class="c1">//     Map(</span>
+<span class="c1">//       "user" -&gt; JsObject(Map("id" -&gt; JsNumber(42), "name" -&gt; JsString("Paul")))</span>
+<span class="c1">//     )</span>
+<span class="c1">//   ),</span>
+<span class="c1">//   "P8vGvJMv8aTU8vxiP5b1U-IHjZpFpGid46UEMszKW2I"</span>
+<span class="c1">// )</span>
 
 <span class="c1">// Setting a new empty JwtSession</span>
 <span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">withNewJwtSession</span>
@@ -134,6 +194,7 @@
 
 <span class="c1">// So, at the end, you can do</span>
 <span class="nv">result</span><span class="o">.</span><span class="py">jwtSession</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+<span class="c1">// res21: Option[User] = Some(User(1L, "Paul"))</span>
 </code></pre></div></div>
 
 <h2 id="play-configuration">Play configuration</h2>
