@@ -1,0 +1,239 @@
+<!DOCTYPE html><html><head><title>JWT Scala: Play</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="JWT Scala contributors" /><meta name="description" content="JWT Scala" /><meta name="og:image" content="/jwt-scala/img/poster.png" /><meta name="image" property="og:image" content="/jwt-scala/img/poster.png" /><meta name="og:title" content="JWT Scala: Play" /><meta name="title" property="og:title" content="JWT Scala: Play" /><meta name="og:site_name" content="JWT Scala" /><meta name="og:url" content="https://jwt-scala.github.io/jwt-scala/" /><meta name="og:type" content="website" /><meta name="og:description" content="JWT Scala" /><link rel="icon" type="image/png" href="/jwt-scala/img/favicon.png" /><meta name="twitter:title" content="JWT Scala: Play" /><meta name="twitter:image" content="/jwt-scala/img/poster.png" /><meta name="twitter:description" content="JWT Scala" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/jwt-scala/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/jwt-scala/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/jwt-scala/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/jwt-scala/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/jwt-scala/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/jwt-scala/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/jwt-scala/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/jwt-scala/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/jwt-scala/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/jwt-scala/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/jwt-scala/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/jwt-scala/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/jwt-scala/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/jwt-scala/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/jwt-scala/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/jwt-scala/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/jwt-scala/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/jwt-scala/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/jwt-scala/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/jwt-scala/img/favicon310x150.png" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/jwt-scala/highlight/styles/vs.css" /><link rel="stylesheet" href="/jwt-scala/css/light-style.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><div id="sidebar-brand"><a href="/jwt-scala/" class="brand"><div class="brand-wrapper"></div><span>JWT Scala</span></a><button id="main-toggle" class="sidebar-toggle"><span class="close"></span></button></div><div class="sidebar-nav"> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-core-jwt.html" title="Native" class="">Native</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-argonaut.html" title="Argonaut" class="">Argonaut</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-circe.html" title="Circe" class="">Circe</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-json4s.html" title="json4s" class="">json4s</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-play-json.html" title="Play Json" class="">Play Json</a></div> <div class="sidebar-nav-item active "><a href="/jwt-scala/jwt-play-jwt-session.html" title="Play" class="active">Play</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-spray-json.html" title="Spray Json" class="">Spray Json</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-upickle.html" title="upickle" class="">upickle</a></div></div></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li id="gh-eyes-item" class="hidden-xs to-uppercase"><a href="https://github.com/jwt-scala/jwt-scala" target="_blank" rel="noopener noreferrer"><i class="fa fa-eye"></i><span>Watchers<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs to-uppercase"><a href="https://github.com/jwt-scala/jwt-scala" target="_blank" rel="noopener noreferrer"><i class="fa fa-star-o"></i><span>Stars<span id="stars" class="label label-default">--</span></span></a></li></ul></div></div></div></div><div id="content" data-github-owner="jwt-scala" data-github-repo="jwt-scala"><div class="content-wrapper"><section><h2 id="jwtsession-case-class">JwtSession case class</h2>
+
+<h3 id="installation">Installation</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-play"</span> <span class="o">%</span> <span class="s">"6.0.0"</span>
+</code></pre></div></div>
+
+<p>Provides an API similar to the Play <a href="https://www.playframework.com/documentation/2.3.x/api/scala/index.html#play.api.mvc.Session">Session</a> but using <code class="language-plaintext highlighter-rouge">JsValue</code> rather than <code class="language-plaintext highlighter-rouge">String</code> as values. It also separates <code class="language-plaintext highlighter-rouge">headerData</code> from <code class="language-plaintext highlighter-rouge">claimData</code> rather than having only one <code class="language-plaintext highlighter-rouge">data</code>.</p>
+
+<h3 id="basic-usage">Basic usage</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.time.Clock</span>
+<span class="k">import</span> <span class="nn">pdi.jwt.JwtSession</span>
+<span class="k">import</span> <span class="nn">play.api.Configuration</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">clock</span><span class="k">:</span> <span class="kt">Clock</span> <span class="o">=</span> <span class="nv">Clock</span><span class="o">.</span><span class="py">systemUTC</span>
+
+<span class="c1">//In a real Play! App this should normally be injected in the constructor with @Inject()</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">conf</span><span class="k">:</span> <span class="kt">Configuration</span> <span class="o">=</span> <span class="nv">Configuration</span><span class="o">.</span><span class="py">reference</span>
+
+<span class="c1">// Let's create a session, it will automatically assign a default header. No</span>
+<span class="c1">// In your app, the default header would be generated from "application.conf" file</span>
+<span class="c1">// but here, it will just use the default values (which are all empty)</span>
+<span class="k">var</span> <span class="n">session</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span>
+
+<span class="c1">// We can add a (key, value)</span>
+<span class="n">session</span> <span class="k">=</span> <span class="n">session</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+
+<span class="c1">// Or several of them</span>
+<span class="n">session</span> <span class="k">=</span> <span class="n">session</span> <span class="o">++</span> <span class="o">((</span><span class="s">"nbf"</span><span class="o">,</span> <span class="mi">1431520421</span><span class="o">),</span> <span class="o">(</span><span class="s">"key"</span><span class="o">,</span> <span class="s">"value"</span><span class="o">),</span> <span class="o">(</span><span class="s">"key2"</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">"key3"</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
+
+<span class="c1">// Also remove a key</span>
+<span class="n">session</span> <span class="k">=</span> <span class="n">session</span> <span class="o">-</span> <span class="s">"key"</span>
+
+<span class="c1">// Or several</span>
+<span class="n">session</span> <span class="k">=</span> <span class="n">session</span> <span class="o">--</span> <span class="o">(</span><span class="s">"key2"</span><span class="o">,</span> <span class="s">"key3"</span><span class="o">)</span>
+
+<span class="c1">// We can access a specific key</span>
+<span class="nv">session</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"user"</span><span class="o">)</span>
+
+<span class="c1">// Test if the session is empty or not</span>
+<span class="c1">// (it is not here since we have several keys in the claimData)</span>
+<span class="nv">session</span><span class="o">.</span><span class="py">isEmpty</span>
+
+<span class="c1">// Serializing the session is the same as encoding it as a JSON Web Token</span>
+<span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">serialize</span>
+
+<span class="c1">// You can create a JwtSession from a token of course</span>
+<span class="nv">JwtSession</span><span class="o">.</span><span class="py">deserialize</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+
+<span class="c1">// You could refresh the session to set its expiration in a few seconds from now</span>
+<span class="c1">// but you need to set "session.maxAge" in your "application.conf" and since this</span>
+<span class="c1">// is not a real Play application, we cannot do that, so here, the refresh will do nothing.</span>
+<span class="n">session</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">refresh</span>
+</code></pre></div></div>
+
+<h3 id="using-implicits">Using implicits</h3>
+
+<p>If you have implicit <code class="language-plaintext highlighter-rouge">Reads</code> and/or <code class="language-plaintext highlighter-rouge">Writes</code>, you can access and/or add data directly as case class or object.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// First, creating the implicits</span>
+<span class="k">import</span> <span class="nn">play.api.libs.json.Json</span>
+<span class="k">import</span> <span class="nn">play.api.libs.functional.syntax._</span>
+<span class="k">import</span> <span class="nn">pdi.jwt.JwtSession</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">formatUser</span> <span class="k">=</span> <span class="nv">Json</span><span class="o">.</span><span class="py">format</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span>
+
+<span class="c1">// Next, adding it to a new session</span>
+<span class="k">val</span> <span class="nv">session2</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="nc">User</span><span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="s">"Paul"</span><span class="o">))</span>
+
+<span class="c1">// Finally, accessing it</span>
+<span class="nv">session2</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="play-requestheader">Play RequestHeader</h2>
+
+<p>You can extract a <code class="language-plaintext highlighter-rouge">JwtSession</code> from a <code class="language-plaintext highlighter-rouge">RequestHeader</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt._</span>
+<span class="k">import</span> <span class="nn">pdi.jwt.JwtSession._</span>
+<span class="k">import</span> <span class="nn">play.api.test.</span><span class="o">{</span><span class="nc">FakeRequest</span><span class="o">,</span> <span class="nc">FakeHeaders</span><span class="o">}</span>
+
+<span class="k">import</span> <span class="nn">play.api.Configuration</span>
+
+<span class="c1">// Default JwtSession</span>
+<span class="nc">FakeRequest</span><span class="o">().</span><span class="py">jwtSession</span>
+
+<span class="c1">// What about some headers?</span>
+<span class="c1">// (the default header for a JSON Web Token is "Authorization" and it should be prefixed by "Bearer ")</span>
+<span class="k">val</span> <span class="nv">request</span> <span class="k">=</span> <span class="nc">FakeRequest</span><span class="o">().</span><span class="py">withHeaders</span><span class="o">((</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Bearer "</span> <span class="o">+</span> <span class="nv">session2</span><span class="o">.</span><span class="py">serialize</span><span class="o">))</span>
+<span class="nv">request</span><span class="o">.</span><span class="py">jwtSession</span>
+
+<span class="c1">// It means you can directly read case classes from the session!</span>
+<span class="c1">// And that's pretty cool</span>
+<span class="nv">request</span><span class="o">.</span><span class="py">jwtSession</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="play-result">Play Result</h2>
+
+<p>There are also implicit helpers around <code class="language-plaintext highlighter-rouge">Result</code> to help you manipulate the session inside it.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">implRequest</span> <span class="k">=</span> <span class="n">request</span>
+
+<span class="c1">// Let's begin by creating a Result</span>
+<span class="k">var</span> <span class="n">result</span><span class="k">:</span> <span class="kt">play.api.mvc.Result</span> <span class="o">=</span> <span class="nv">play</span><span class="o">.</span><span class="py">api</span><span class="o">.</span><span class="py">mvc</span><span class="o">.</span><span class="py">Results</span><span class="o">.</span><span class="py">Ok</span>
+
+<span class="c1">// We can already get a JwtSession from our implicit RequestHeader</span>
+<span class="nv">result</span><span class="o">.</span><span class="py">jwtSession</span>
+
+<span class="c1">// Setting a new empty JwtSession</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">withNewJwtSession</span>
+
+<span class="c1">// Or from an existing JwtSession</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">withJwtSession</span><span class="o">(</span><span class="n">session2</span><span class="o">)</span>
+
+<span class="c1">// Or from a JsObject</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">withJwtSession</span><span class="o">(</span><span class="nv">Json</span><span class="o">.</span><span class="py">obj</span><span class="o">((</span><span class="s">"id"</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">"key"</span><span class="o">,</span> <span class="s">"value"</span><span class="o">)))</span>
+
+<span class="c1">// Or from (key, value)</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">withJwtSession</span><span class="o">((</span><span class="s">"id"</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">"key"</span><span class="o">,</span> <span class="s">"value"</span><span class="o">))</span>
+
+<span class="c1">// We can add stuff to the current session (only (String, String))</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">addingToJwtSession</span><span class="o">((</span><span class="s">"key2"</span><span class="o">,</span> <span class="s">"value2"</span><span class="o">),</span> <span class="o">(</span><span class="s">"key3"</span><span class="o">,</span> <span class="s">"value3"</span><span class="o">))</span>
+
+<span class="c1">// Or directly classes or objects if you have the correct implicit Writes</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">addingToJwtSession</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="nc">User</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"Paul"</span><span class="o">))</span>
+
+<span class="c1">// Removing from session</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">removingFromJwtSession</span><span class="o">(</span><span class="s">"key2"</span><span class="o">,</span> <span class="s">"key3"</span><span class="o">)</span>
+
+<span class="c1">// Refresh the current session</span>
+<span class="n">result</span> <span class="k">=</span> <span class="nv">result</span><span class="o">.</span><span class="py">refreshJwtSession</span>
+
+<span class="c1">// So, at the end, you can do</span>
+<span class="nv">result</span><span class="o">.</span><span class="py">jwtSession</span><span class="o">.</span><span class="py">getAs</span><span class="o">[</span><span class="kt">User</span><span class="o">](</span><span class="s">"user"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="play-configuration">Play configuration</h2>
+
+<h3 id="secret-key">Secret key</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.secret.key</code></p>
+
+<blockquote>
+  <p>Default: none</p>
+</blockquote>
+
+<p>The secret key is used to secure cryptographics functions. We are using the same key to sign Json Web Tokens so you don’t need to worry about it.</p>
+
+<h3 id="private-key">Private key</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.privateKey</code></p>
+
+<blockquote>
+  <p>Default: none</p>
+</blockquote>
+
+<p>The PKCS8 format private key is used to sign JWT session. If <code class="language-plaintext highlighter-rouge">play.http.session.privateKey</code> is missing <code class="language-plaintext highlighter-rouge">play.http.secret.key</code> used instead.</p>
+
+<h3 id="public-key">Public key</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.publicKey</code></p>
+
+<blockquote>
+  <p>Default: none</p>
+</blockquote>
+
+<p>The X.509 format public key is used to verify JWT session signed with private key <code class="language-plaintext highlighter-rouge">play.http.session.privateKey</code></p>
+
+<h3 id="session-timeout">Session timeout</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.maxAge</code></p>
+
+<blockquote>
+  <p>Default: none</p>
+</blockquote>
+
+<p>Just like for the cookie session, you can use this key to specify the duration, in milliseconds or using the duration syntax (for example 30m or 1h), after which the user should be logout, which mean the token will no longer be valid. It means you need to refresh the expiration date at each request</p>
+
+<h3 id="signature-algorithm">Signature algorithm</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.algorithm</code></p>
+
+<blockquote>
+  <p>Default: HS256</p>
+
+  <p>Supported: HMD5, HS1, HS224, HS256, HS384, HS512, RS256, RS384, RS512, ES256, ES384, ES512</p>
+</blockquote>
+
+<p>You can specify which algorithm you want to use, among the supported ones, in order to create the signature which will assure you that nobody can actually change the token. You should probably stick with the default one or use HmacSHA512 for maximum security.</p>
+
+<h3 id="header-name">Header name</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.jwtName</code></p>
+
+<blockquote>
+  <p>Default: Authorization</p>
+</blockquote>
+
+<p>You can change the name of the header in which the token should be stored. It will be used for both requests and responses.</p>
+
+<h3 id="response-header-name">Response header name</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.jwtResponseName</code></p>
+
+<blockquote>
+  <p>Default: none</p>
+</blockquote>
+
+<p>If you need to have a different header for request and response, you can override the response header using this key.</p>
+
+<h3 id="token-prefix">Token prefix</h3>
+
+<p><code class="language-plaintext highlighter-rouge">play.http.session.tokenPrefix</code></p>
+
+<blockquote>
+  <p>Default: “Bearer “</p>
+</blockquote>
+
+<p>Authorization header should have a prefix before the token, like “Basic” for example. For a JWT token, it should be “Bearer” (which is the default value) but you can freely change or remove it (using an empty string). The token prefix will be directly prepend before the token, so be sure to put any necessary whitespaces in it.</p>
+</section></div></div></div></div><script src="/jwt-scala/highlight/highlight.pack.js"></script><script>
+// For all code blocks, copy the language from the containing div
+// to the inner code tag (where hljs expects it to be)
+const langPrefix = 'language-';
+document.querySelectorAll(`div[class^='${langPrefix}']`).forEach(function(div) {
+  div.classList.forEach(function(cssClass) {
+    if (cssClass.startsWith(langPrefix)) {
+      const lang = cssClass.substring(langPrefix.length);
+      div.querySelectorAll('pre code').forEach(function(code) {
+        code.classList.add(lang);
+      });
+    }
+  });
+});
+
+hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlightingOnLoad();
+      </script><script>console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')</script><script src="/jwt-scala/js/search.js"></script><script src="/jwt-scala/js/docs.js"></script></body></html>

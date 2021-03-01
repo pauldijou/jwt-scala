@@ -1,0 +1,160 @@
+<!DOCTYPE html><html><head><title>JWT Scala: Native</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="JWT Scala contributors" /><meta name="description" content="JWT Scala" /><meta name="og:image" content="/jwt-scala/img/poster.png" /><meta name="image" property="og:image" content="/jwt-scala/img/poster.png" /><meta name="og:title" content="JWT Scala: Native" /><meta name="title" property="og:title" content="JWT Scala: Native" /><meta name="og:site_name" content="JWT Scala" /><meta name="og:url" content="https://jwt-scala.github.io/jwt-scala/" /><meta name="og:type" content="website" /><meta name="og:description" content="JWT Scala" /><link rel="icon" type="image/png" href="/jwt-scala/img/favicon.png" /><meta name="twitter:title" content="JWT Scala: Native" /><meta name="twitter:image" content="/jwt-scala/img/poster.png" /><meta name="twitter:description" content="JWT Scala" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/jwt-scala/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/jwt-scala/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/jwt-scala/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/jwt-scala/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/jwt-scala/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/jwt-scala/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/jwt-scala/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/jwt-scala/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/jwt-scala/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/jwt-scala/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/jwt-scala/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/jwt-scala/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/jwt-scala/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/jwt-scala/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/jwt-scala/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/jwt-scala/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/jwt-scala/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/jwt-scala/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/jwt-scala/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/jwt-scala/img/favicon310x150.png" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/jwt-scala/highlight/styles/vs.css" /><link rel="stylesheet" href="/jwt-scala/css/light-style.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><div id="sidebar-brand"><a href="/jwt-scala/" class="brand"><div class="brand-wrapper"></div><span>JWT Scala</span></a><button id="main-toggle" class="sidebar-toggle"><span class="close"></span></button></div><div class="sidebar-nav"> <div class="sidebar-nav-item active "><a href="/jwt-scala/jwt-core-jwt.html" title="Native" class="active">Native</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-argonaut.html" title="Argonaut" class="">Argonaut</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-circe.html" title="Circe" class="">Circe</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-json4s.html" title="json4s" class="">json4s</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-play-json.html" title="Play Json" class="">Play Json</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-play-jwt-session.html" title="Play" class="">Play</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-spray-json.html" title="Spray Json" class="">Spray Json</a></div> <div class="sidebar-nav-item  "><a href="/jwt-scala/jwt-upickle.html" title="upickle" class="">upickle</a></div></div></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li id="gh-eyes-item" class="hidden-xs to-uppercase"><a href="https://github.com/jwt-scala/jwt-scala" target="_blank" rel="noopener noreferrer"><i class="fa fa-eye"></i><span>Watchers<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs to-uppercase"><a href="https://github.com/jwt-scala/jwt-scala" target="_blank" rel="noopener noreferrer"><i class="fa fa-star-o"></i><span>Stars<span id="stars" class="label label-default">--</span></span></a></li></ul></div></div></div></div><div id="content" data-github-owner="jwt-scala" data-github-repo="jwt-scala"><div class="content-wrapper"><section><h2 id="jwt-object">Jwt object</h2>
+
+<ul>
+  <li><a href="https://jwt-scala.github.io/jwt-scala/api/pdi/jwt/Jwt$.html">API Documentation</a></li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-core"</span> <span class="o">%</span> <span class="s">"6.0.0"</span>
+</code></pre></div></div>
+
+<h3 id="basic-usage">Basic usage</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.time.Clock</span>
+<span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">Jwt</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">,</span> <span class="nc">JwtHeader</span><span class="o">,</span> <span class="nc">JwtClaim</span><span class="o">,</span> <span class="nc">JwtOptions</span><span class="o">}</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">clock</span><span class="k">:</span> <span class="kt">Clock</span> <span class="o">=</span> <span class="nv">Clock</span><span class="o">.</span><span class="py">systemUTC</span>
+<span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">)</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decodeRawAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decodeRawAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"wrongKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+</code></pre></div></div>
+
+<h3 id="encoding">Encoding</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Encode from string, header automatically generated</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS384</span><span class="o">)</span>
+
+<span class="c1">// Encode from case class, header automatically generated</span>
+<span class="c1">// Set that the token has been issued now and expires in 10 seconds</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">({</span><span class="s">"""{"user":1}"""</span><span class="o">}).</span><span class="py">issuedNow</span><span class="o">.</span><span class="py">expiresIn</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS512</span><span class="o">)</span>
+
+<span class="c1">// You can encode without signing it</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">)</span>
+
+<span class="c1">// You can specify a string header but also need to specify the algorithm just to be sure</span>
+<span class="c1">// This is not really typesafe, so please use it with care</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"""{"typ":"JWT","alg":"HS256"}"""</span><span class="o">,</span> <span class="s">"""{"user":1}"""</span><span class="o">,</span> <span class="s">"key"</span><span class="o">,</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">)</span>
+
+<span class="c1">// If using a case class header, no need to repeat the algorithm</span>
+<span class="c1">// This is way better than the previous one</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtHeader</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">),</span> <span class="nc">JwtClaim</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">),</span> <span class="s">"key"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="decoding">Decoding</h3>
+
+<p>In JWT Scala, espcially when using raw strings which are not typesafe at all, there are a lot of possible errors. This is why nearly all <code class="language-plaintext highlighter-rouge">decode</code> functions will return a <code class="language-plaintext highlighter-rouge">Try</code> rather than directly the expected result. In case of failure, the wrapped exception should tell you what went wrong.</p>
+
+<p>Take note that nearly all decoding methods (including those from helper libs) support either a String key, or a PrivateKey with a Hmac algorithm or a PublicKey with a RSA or ECDSA algorithm.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Decode all parts of the token as string</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decodeRawAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">allHmac</span><span class="o">)</span>
+
+<span class="c1">// Decode only the claim as a string</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decodeRaw</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// Decode all parts and cast them as a better type if possible.</span>
+<span class="c1">// Since the implementation in JWT Core only use string, it is the same as decodeRawAll</span>
+<span class="c1">// But check the result in JWT Play JSON to see the difference</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decodeAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// Same as before, but only the claim</span>
+<span class="c1">// (you should start to see a pattern in the naming convention of the functions)</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// Failure because the token is not a token at all</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="s">"Hey there!"</span><span class="o">)</span>
+
+<span class="c1">// Failure if not Base64 encoded</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="s">"a.b.c"</span><span class="o">)</span>
+
+<span class="c1">// Failure in case we use the wrong key</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"wrongKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// Failure if the token only starts in 5 seconds</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">().</span><span class="py">startsIn</span><span class="o">(</span><span class="mi">5</span><span class="o">)))</span>
+</code></pre></div></div>
+
+<h3 id="validating">Validating</h3>
+
+<p>If you only want to check if a token is valid without decoding it. You have two options: <code class="language-plaintext highlighter-rouge">validate</code> functions that will throw the exceptions we saw in the decoding section, so you know what went wrong, or <code class="language-plaintext highlighter-rouge">isValid</code> functions that will return a boolean in case you don’t care about the actual error and don’t want to bother with catching exception.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// All good</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"secretKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// Wrong key here</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"wrongKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">"wrongKey"</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
+
+<span class="c1">// No key for unsigned token =&gt; ok</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"{}"</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="s">"{}"</span><span class="o">))</span>
+
+<span class="c1">// No key while the token is actually signed =&gt; wrong</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+
+<span class="c1">// The token hasn't started yet!</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">().</span><span class="py">startsIn</span><span class="o">(</span><span class="mi">5</span><span class="o">)))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">().</span><span class="py">startsIn</span><span class="o">(</span><span class="mi">5</span><span class="o">)))</span>
+
+<span class="c1">// This is no token</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">validate</span><span class="o">(</span><span class="s">"a.b.c"</span><span class="o">)</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="s">"a.b.c"</span><span class="o">)</span>
+<span class="c1">// pdi.jwt.exceptions.JwtValidationException: Invalid signature for this token or wrong algorithm.</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate(Jwt.scala:813)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate$(Jwt.scala:789)</span>
+<span class="c1">// 	at pdi.jwt.Jwt$.validate(JwtPureScala.scala:18)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate(Jwt.scala:837)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate$(Jwt.scala:820)</span>
+<span class="c1">// 	at pdi.jwt.Jwt$.validate(JwtPureScala.scala:18)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate(Jwt.scala:979)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate$(Jwt.scala:964)</span>
+<span class="c1">// 	at pdi.jwt.Jwt$.validate(JwtPureScala.scala:18)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate(Jwt.scala:984)</span>
+<span class="c1">// 	at pdi.jwt.JwtCore.validate$(Jwt.scala:983)</span>
+<span class="c1">// 	at pdi.jwt.Jwt$.validate(JwtPureScala.scala:18)</span>
+<span class="c1">// 	at repl.MdocSession$App0$$anonfun$22.apply$mcV$sp(jwt-core-jwt.md:88)</span>
+<span class="c1">// 	at repl.MdocSession$App0$$anonfun$22.apply(jwt-core-jwt.md:88)</span>
+<span class="c1">// 	at repl.MdocSession$App0$$anonfun$22.apply(jwt-core-jwt.md:88)</span>
+</code></pre></div></div>
+
+<h3 id="options">Options</h3>
+
+<p>All validating and decoding methods support a final optional argument as a <code class="language-plaintext highlighter-rouge">JwtOptions</code> which allow you to disable validation checks. This is useful if you need to access data from an expired token for example. You can disable <code class="language-plaintext highlighter-rouge">expiration</code>, <code class="language-plaintext highlighter-rouge">notBefore</code> and <code class="language-plaintext highlighter-rouge">signature</code> checks. Be warned that if you disable the last one, you have no guarantee that the user didn’t change the content of the token.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">expiredToken</span> <span class="k">=</span> <span class="nv">Jwt</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">().</span><span class="py">by</span><span class="o">(</span><span class="s">"me"</span><span class="o">).</span><span class="py">expiresIn</span><span class="o">(-</span><span class="mi">1</span><span class="o">));</span>
+
+<span class="c1">// Fail since the token is expired</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">)</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">)</span>
+
+<span class="c1">// Let's disable expiration check</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">,</span> <span class="nc">JwtOptions</span><span class="o">(</span><span class="n">expiration</span> <span class="k">=</span> <span class="kc">false</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">,</span> <span class="nc">JwtOptions</span><span class="o">(</span><span class="n">expiration</span> <span class="k">=</span> <span class="kc">false</span><span class="o">))</span>
+</code></pre></div></div>
+
+<p>You can also specify a leeway, in seconds, to account for clock skew.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Allow 30sec leeway</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">isValid</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">,</span> <span class="nc">JwtOptions</span><span class="o">(</span><span class="n">leeway</span> <span class="k">=</span> <span class="mi">30</span><span class="o">))</span>
+<span class="nv">Jwt</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">expiredToken</span><span class="o">,</span> <span class="nc">JwtOptions</span><span class="o">(</span><span class="n">leeway</span> <span class="k">=</span> <span class="mi">30</span><span class="o">))</span>
+</code></pre></div></div>
+</section></div></div></div></div><script src="/jwt-scala/highlight/highlight.pack.js"></script><script>
+// For all code blocks, copy the language from the containing div
+// to the inner code tag (where hljs expects it to be)
+const langPrefix = 'language-';
+document.querySelectorAll(`div[class^='${langPrefix}']`).forEach(function(div) {
+  div.classList.forEach(function(cssClass) {
+    if (cssClass.startsWith(langPrefix)) {
+      const lang = cssClass.substring(langPrefix.length);
+      div.querySelectorAll('pre code').forEach(function(code) {
+        code.classList.add(lang);
+      });
+    }
+  });
+});
+
+hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlightingOnLoad();
+      </script><script>console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')</script><script src="/jwt-scala/js/search.js"></script><script src="/jwt-scala/js/docs.js"></script></body></html>
