@@ -22,7 +22,7 @@
   <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">().</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">),</span>
   <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@152acd0f</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@5153694b</span>
 
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
@@ -30,21 +30,21 @@
 <span class="c1">// alg: JwtAlgorithm.HS512.type = HS512</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">alg</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NzIzOTY1ODQsImlhdCI6MTYxNDYxMTgyNH0.bj9esmRseP9XvW1CrEY7552THDqEC5euNMfzKhO7bm_UqO413uJOF0cCMipT7H4pJzItXhcxXOisPc3pcX5vtg"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NzI1NDYyNTUsImlhdCI6MTYxNDc2MTQ5NX0.vt6HG_jFEA3K7ikZ4GiGIC0mX9ZpC9vybvKaKpu_YYjEVXSl3560eyz4EAKlxUVO4FsXDI-QxwNDC2t88zPqEA"</span>
 <span class="k">val</span> <span class="nv">decodedJson</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Json</span><span class="o">]</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">alg</span><span class="o">))</span>
 <span class="c1">// decodedJson: Try[Json] = Success(</span>
 <span class="c1">//   JObject(</span>
 <span class="c1">//     JsonObjectInstance(</span>
 <span class="c1">//       Map(</span>
-<span class="c1">//         "exp" -&gt; JNumber(JsonLong(1772396584L)),</span>
-<span class="c1">//         "iat" -&gt; JNumber(JsonLong(1614611824L))</span>
+<span class="c1">//         "exp" -&gt; JNumber(JsonLong(1772546255L)),</span>
+<span class="c1">//         "iat" -&gt; JNumber(JsonLong(1614761495L))</span>
 <span class="c1">//       ),</span>
 <span class="c1">//       Vector("exp", "iat")</span>
 <span class="c1">//     )</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="k">val</span> <span class="nv">decodedClaim</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">JwtClaim</span><span class="o">]</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">alg</span><span class="o">))</span>
-<span class="c1">// decodedClaim: Try[JwtClaim] = Success(pdi.jwt.JwtClaim@152acd0f)</span>
+<span class="c1">// decodedClaim: Try[JwtClaim] = Success(pdi.jwt.JwtClaim@5153694b)</span>
 </code></pre></div></div>
 
 <h3 id="encoding">Encoding</h3>
@@ -62,7 +62,7 @@
 <span class="k">val</span> <span class="nv">jsonClaim</span> <span class="k">=</span> <span class="nv">Parse</span><span class="o">.</span><span class="py">parseOption</span><span class="o">(</span><span class="n">s</span><span class="s">"""{"expires":${Instant.now().getEpochSecond}}"""</span><span class="o">).</span><span class="py">get</span>
 <span class="c1">// jsonClaim: argonaut.Json = JObject(</span>
 <span class="c1">//   JsonObjectInstance(</span>
-<span class="c1">//     Map("expires" -&gt; JNumber(JsonLong(1614611825L))),</span>
+<span class="c1">//     Map("expires" -&gt; JNumber(JsonLong(1614761495L))),</span>
 <span class="c1">//     Vector("expires")</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
@@ -75,11 +75,11 @@
 <span class="c1">// )</span>
 
 <span class="k">val</span> <span class="nv">token1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">jsonClaim</span><span class="o">)</span>
-<span class="c1">// token1: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE0NjExODI1fQ."</span>
+<span class="c1">// token1: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE0NzYxNDk1fQ."</span>
 <span class="k">val</span> <span class="nv">token2</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">jsonClaim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">alg</span><span class="o">)</span>
-<span class="c1">// token2: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjoxNjE0NjExODI1fQ.-BhO2ma8BNm9VO0xmoqbj7KPXA1INgB8PL9n9Vl0EC1oKI7MyA0_OJDgw1j1xWKpEKVAVslOt4GHTHNLf2XBlg"</span>
+<span class="c1">// token2: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjoxNjE0NzYxNDk1fQ.vNhYzsuelFrsg_Rq7cubPNYJJpx5fXjZTw7xadVP3nVt-iJLhLpOOvbmXZlJZgg4j5Xoq34T77ukaWRJb-h8Gg"</span>
 <span class="k">val</span> <span class="nv">token3</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">jsonHeader</span><span class="o">,</span> <span class="n">jsonClaim</span><span class="o">,</span> <span class="n">key</span><span class="o">)</span>
-<span class="c1">// token3: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjoxNjE0NjExODI1fQ.-BhO2ma8BNm9VO0xmoqbj7KPXA1INgB8PL9n9Vl0EC1oKI7MyA0_OJDgw1j1xWKpEKVAVslOt4GHTHNLf2XBlg"</span>
+<span class="c1">// token3: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHBpcmVzIjoxNjE0NzYxNDk1fQ.vNhYzsuelFrsg_Rq7cubPNYJJpx5fXjZTw7xadVP3nVt-iJLhLpOOvbmXZlJZgg4j5Xoq34T77ukaWRJb-h8Gg"</span>
 </code></pre></div></div>
 
 <h3 id="decoding">Decoding</h3>
@@ -93,22 +93,22 @@
   <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">),</span>
   <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@2fbb6ff5</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@5153694b</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">alg</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS512</span>
 <span class="c1">// alg: JwtAlgorithm.HS512.type = HS512</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">alg</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NzIzOTY1ODUsImlhdCI6MTYxNDYxMTgyNX0.1EKIFw0WFCBOzwpXcduKwtnWl9W90WNAmRhsV-h5LLz350ZF8GxbZ2rgABg-0ib01A8jzLXhS43iqnl-GvYdfA"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NzI1NDYyNTUsImlhdCI6MTYxNDc2MTQ5NX0.vt6HG_jFEA3K7ikZ4GiGIC0mX9ZpC9vybvKaKpu_YYjEVXSl3560eyz4EAKlxUVO4FsXDI-QxwNDC2t88zPqEA"</span>
 
 <span class="k">val</span> <span class="nv">decodedJsonClaim</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Json</span><span class="o">]</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">alg</span><span class="o">))</span>
 <span class="c1">// decodedJsonClaim: Try[Json] = Success(</span>
 <span class="c1">//   JObject(</span>
 <span class="c1">//     JsonObjectInstance(</span>
 <span class="c1">//       Map(</span>
-<span class="c1">//         "exp" -&gt; JNumber(JsonLong(1772396585L)),</span>
-<span class="c1">//         "iat" -&gt; JNumber(JsonLong(1614611825L))</span>
+<span class="c1">//         "exp" -&gt; JNumber(JsonLong(1772546255L)),</span>
+<span class="c1">//         "iat" -&gt; JNumber(JsonLong(1614761495L))</span>
 <span class="c1">//       ),</span>
 <span class="c1">//       Vector("exp", "iat")</span>
 <span class="c1">//     )</span>
@@ -126,24 +126,24 @@
 <span class="c1">//     JObject(</span>
 <span class="c1">//       JsonObjectInstance(</span>
 <span class="c1">//         Map(</span>
-<span class="c1">//           "exp" -&gt; JNumber(JsonLong(1772396585L)),</span>
-<span class="c1">//           "iat" -&gt; JNumber(JsonLong(1614611825L))</span>
+<span class="c1">//           "exp" -&gt; JNumber(JsonLong(1772546255L)),</span>
+<span class="c1">//           "iat" -&gt; JNumber(JsonLong(1614761495L))</span>
 <span class="c1">//         ),</span>
 <span class="c1">//         Vector("exp", "iat")</span>
 <span class="c1">//       )</span>
 <span class="c1">//     ),</span>
-<span class="c1">//     "1EKIFw0WFCBOzwpXcduKwtnWl9W90WNAmRhsV-h5LLz350ZF8GxbZ2rgABg-0ib01A8jzLXhS43iqnl-GvYdfA"</span>
+<span class="c1">//     "vt6HG_jFEA3K7ikZ4GiGIC0mX9ZpC9vybvKaKpu_YYjEVXSl3560eyz4EAKlxUVO4FsXDI-QxwNDC2t88zPqEA"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 
 <span class="k">val</span> <span class="nv">decodedClaim</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">JwtClaim</span><span class="o">]</span>  <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">alg</span><span class="o">))</span>
-<span class="c1">// decodedClaim: Try[JwtClaim] = Success(pdi.jwt.JwtClaim@2fbb6ff5)</span>
+<span class="c1">// decodedClaim: Try[JwtClaim] = Success(pdi.jwt.JwtClaim@5153694b)</span>
 <span class="k">val</span> <span class="nv">decodedToken</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[(</span><span class="kt">JwtHeader</span>, <span class="kt">JwtClaim</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="nv">JwtArgonaut</span><span class="o">.</span><span class="py">decodeAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">alg</span><span class="o">))</span>
 <span class="c1">// decodedToken: Try[(JwtHeader, JwtClaim, String)] = Success(</span>
 <span class="c1">//   (</span>
 <span class="c1">//     pdi.jwt.JwtHeader@7e1481b1,</span>
-<span class="c1">//     pdi.jwt.JwtClaim@2fbb6ff5,</span>
-<span class="c1">//     "1EKIFw0WFCBOzwpXcduKwtnWl9W90WNAmRhsV-h5LLz350ZF8GxbZ2rgABg-0ib01A8jzLXhS43iqnl-GvYdfA"</span>
+<span class="c1">//     pdi.jwt.JwtClaim@5153694b,</span>
+<span class="c1">//     "vt6HG_jFEA3K7ikZ4GiGIC0mX9ZpC9vybvKaKpu_YYjEVXSl3560eyz4EAKlxUVO4FsXDI-QxwNDC2t88zPqEA"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 </code></pre></div></div>
