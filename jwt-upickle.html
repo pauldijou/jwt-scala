@@ -19,21 +19,26 @@
   <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">),</span>
   <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@e35eb5d3</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@bc983140</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">algo</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span>
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMxODQzMzUsImlhdCI6MTYxNTM5OTU3NX0.p4uXZzdQoX-mBg-GGdtMh_XCj5s_KvvuN1mCN9ejKFg"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMxOTUyMjQsImlhdCI6MTYxNTQxMDQ2NH0.cpzFXR3DEdFJiYDdWmd7W4dr5xYxI8MKvTl9EdGqnFw"</span>
 
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res1: util.Try[ujson.Value] = Success(</span>
-<span class="c1">//   Obj(Map("exp" -&gt; Num(1.773184335E9), "iat" -&gt; Num(1.615399575E9)))</span>
+<span class="c1">//   value = Obj(</span>
+<span class="c1">//     value = LinkedHashMap(</span>
+<span class="c1">//       "exp" -&gt; Num(value = 1.773195224E9),</span>
+<span class="c1">//       "iat" -&gt; Num(value = 1.615410464E9)</span>
+<span class="c1">//     )</span>
+<span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res2: util.Try[JwtClaim] = Success(pdi.jwt.JwtClaim@e35eb5d3)</span>
+<span class="c1">// res2: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@bc983140)</span>
 </code></pre></div></div>
 
 <h3 id="encoding">Encoding</h3>
@@ -48,16 +53,23 @@
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">claimJson</span> <span class="k">=</span> <span class="n">read</span><span class="o">[</span><span class="kt">ujson.Value</span><span class="o">](</span><span class="n">s</span><span class="s">"""{"expires":${Instant.now.getEpochSecond}}"""</span><span class="o">)</span>
-<span class="c1">// claimJson: ujson.Value = Obj(Map("expires" -&gt; Num(1.615399575E9)))</span>
+<span class="c1">// claimJson: ujson.Value = Obj(</span>
+<span class="c1">//   value = LinkedHashMap("expires" -&gt; Num(value = 1.615410464E9))</span>
+<span class="c1">// )</span>
 <span class="k">val</span> <span class="nv">header</span> <span class="k">=</span> <span class="n">read</span><span class="o">[</span><span class="kt">ujson.Value</span><span class="o">](</span> <span class="s">"""{"typ":"JWT","alg":"HS256"}"""</span><span class="o">)</span>
-<span class="c1">// header: ujson.Value = Obj(Map("typ" -&gt; Str("JWT"), "alg" -&gt; Str("HS256")))</span>
+<span class="c1">// header: ujson.Value = Obj(</span>
+<span class="c1">//   value = LinkedHashMap(</span>
+<span class="c1">//     "typ" -&gt; Str(value = "JWT"),</span>
+<span class="c1">//     "alg" -&gt; Str(value = "HS256")</span>
+<span class="c1">//   )</span>
+<span class="c1">// )</span>
 <span class="c1">// From just the claim to all possible attributes</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claimJson</span><span class="o">)</span>
-<span class="c1">// res4: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE1Mzk5NTc1fQ."</span>
+<span class="c1">// res4: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE1NDEwNDY0fQ."</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claimJson</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// res5: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1Mzk5NTc1fQ.LwgLJ1XbdvfZ2bn6TcZk1ay4q0E50fUVhiJJVqpdtfA"</span>
+<span class="c1">// res5: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NDEwNDY0fQ.WyxpEcUx6F1DjH4cOG9F-kx1SZ3DdiDCkFK5h0OUwVQ"</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">header</span><span class="o">,</span> <span class="n">claimJson</span><span class="o">,</span> <span class="n">key</span><span class="o">)</span>
-<span class="c1">// res6: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1Mzk5NTc1fQ.LwgLJ1XbdvfZ2bn6TcZk1ay4q0E50fUVhiJJVqpdtfA"</span>
+<span class="c1">// res6: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NDEwNDY0fQ.WyxpEcUx6F1DjH4cOG9F-kx1SZ3DdiDCkFK5h0OUwVQ"</span>
 </code></pre></div></div>
 
 <h3 id="decoding">Decoding</h3>
@@ -70,37 +82,52 @@
   <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">),</span>
   <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@e35eb5d3</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@bc983140</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">algo</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span>
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMxODQzMzUsImlhdCI6MTYxNTM5OTU3NX0.p4uXZzdQoX-mBg-GGdtMh_XCj5s_KvvuN1mCN9ejKFg"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMxOTUyMjQsImlhdCI6MTYxNTQxMDQ2NH0.cpzFXR3DEdFJiYDdWmd7W4dr5xYxI8MKvTl9EdGqnFw"</span>
 
 <span class="c1">// You can decode to JsObject</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res8: util.Try[ujson.Value] = Success(</span>
-<span class="c1">//   Obj(Map("exp" -&gt; Num(1.773184335E9), "iat" -&gt; Num(1.615399575E9)))</span>
+<span class="c1">//   value = Obj(</span>
+<span class="c1">//     value = LinkedHashMap(</span>
+<span class="c1">//       "exp" -&gt; Num(value = 1.773195224E9),</span>
+<span class="c1">//       "iat" -&gt; Num(value = 1.615410464E9)</span>
+<span class="c1">//     )</span>
+<span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decodeJsonAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res9: util.Try[(ujson.Value, ujson.Value, String)] = Success(</span>
-<span class="c1">//   (</span>
-<span class="c1">//     Obj(Map("typ" -&gt; Str("JWT"), "alg" -&gt; Str("HS256"))),</span>
-<span class="c1">//     Obj(Map("exp" -&gt; Num(1.773184335E9), "iat" -&gt; Num(1.615399575E9))),</span>
-<span class="c1">//     "p4uXZzdQoX-mBg-GGdtMh_XCj5s_KvvuN1mCN9ejKFg"</span>
+<span class="c1">//   value = (</span>
+<span class="c1">//     Obj(</span>
+<span class="c1">//       value = LinkedHashMap(</span>
+<span class="c1">//         "typ" -&gt; Str(value = "JWT"),</span>
+<span class="c1">//         "alg" -&gt; Str(value = "HS256")</span>
+<span class="c1">//       )</span>
+<span class="c1">//     ),</span>
+<span class="c1">//     Obj(</span>
+<span class="c1">//       value = LinkedHashMap(</span>
+<span class="c1">//         "exp" -&gt; Num(value = 1.773195224E9),</span>
+<span class="c1">//         "iat" -&gt; Num(value = 1.615410464E9)</span>
+<span class="c1">//       )</span>
+<span class="c1">//     ),</span>
+<span class="c1">//     "cpzFXR3DEdFJiYDdWmd7W4dr5xYxI8MKvTl9EdGqnFw"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="c1">// Or to case classes</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res10: util.Try[JwtClaim] = Success(pdi.jwt.JwtClaim@e35eb5d3)</span>
+<span class="c1">// res10: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@bc983140)</span>
 <span class="nv">JwtUpickle</span><span class="o">.</span><span class="py">decodeAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res11: util.Try[(pdi.jwt.JwtHeader, JwtClaim, String)] = Success(</span>
-<span class="c1">//   (</span>
-<span class="c1">//     pdi.jwt.JwtHeader@ac020068,</span>
-<span class="c1">//     pdi.jwt.JwtClaim@e35eb5d3,</span>
-<span class="c1">//     "p4uXZzdQoX-mBg-GGdtMh_XCj5s_KvvuN1mCN9ejKFg"</span>
+<span class="c1">//   value = (</span>
+<span class="c1">//     pdi.jwt.JwtHeader@c72c1ed5,</span>
+<span class="c1">//     pdi.jwt.JwtClaim@bc983140,</span>
+<span class="c1">//     "cpzFXR3DEdFJiYDdWmd7W4dr5xYxI8MKvTl9EdGqnFw"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 </code></pre></div></div>

@@ -46,9 +46,12 @@ val token: String = Jwt.encode("""{"user":"someone", "iss": "me"}""");
 // token: String = "eyJhbGciOiJub25lIn0.eyJ1c2VyIjoic29tZW9uZSIsICJpc3MiOiAibWUifQ.";
 val decoded: Try[(JwtHeader, JwtPrivateClaim, String)] = JwtJson4sPrivate.decodeAll(token)
 // decoded: Try[(JwtHeader, JwtPrivateClaim, String)] = Success(
-//   (
+//   value = (
 //     pdi.jwt.JwtHeader@71da1600,
-//     JwtPrivateClaim(Some("someone"), pdi.jwt.JwtClaim@f360dccd),
+//     JwtPrivateClaim(
+//       user = Some(value = "someone"),
+//       reservedClaims = pdi.jwt.JwtClaim@a923be4c
+//     ),
 //     ""
 //   )
 // )

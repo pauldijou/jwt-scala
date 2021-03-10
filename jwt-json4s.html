@@ -13,7 +13,9 @@
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">JwtJson4s</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">},</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">JsonDSL</span><span class="o">.</span><span class="py">WithBigDecimal</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">native</span><span class="o">.</span><span class="py">JsonMethods</span><span class="o">.</span><span class="py">_</span>
 <span class="k">val</span> <span class="nv">claim</span> <span class="k">=</span> <span class="nc">JObject</span><span class="o">((</span><span class="s">"user"</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">"nbf"</span><span class="o">,</span> <span class="mi">1431520421</span><span class="o">))</span>
-<span class="c1">// claim: JObject = JObject(List(("user", JInt(1)), ("nbf", JInt(1431520421))))</span>
+<span class="c1">// claim: JObject = JObject(</span>
+<span class="c1">//   obj = List(("user", JInt(num = 1)), ("nbf", JInt(num = 1431520421)))</span>
+<span class="c1">// )</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">algo</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span>
@@ -27,18 +29,22 @@
 
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res1: util.Try[JObject] = Success(</span>
-<span class="c1">//   JObject(List(("user", JInt(1)), ("nbf", JInt(1431520421))))</span>
+<span class="c1">//   value = JObject(</span>
+<span class="c1">//     obj = List(("user", JInt(num = 1)), ("nbf", JInt(num = 1431520421)))</span>
+<span class="c1">//   )</span>
 <span class="c1">// )</span>
 
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res2: util.Try[pdi.jwt.JwtClaim] = Success(pdi.jwt.JwtClaim@1d288770)</span>
+<span class="c1">// res2: util.Try[pdi.jwt.JwtClaim] = Success(</span>
+<span class="c1">//   value = pdi.jwt.JwtClaim@c847a591</span>
+<span class="c1">// )</span>
 </code></pre></div></div>
 
 <h3 id="encoding">Encoding</h3>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">header</span> <span class="k">=</span> <span class="nc">JObject</span><span class="o">((</span><span class="s">"typ"</span><span class="o">,</span> <span class="s">"JWT"</span><span class="o">),</span> <span class="o">(</span><span class="s">"alg"</span><span class="o">,</span> <span class="s">"HS256"</span><span class="o">))</span>
 <span class="c1">// header: JObject = JObject(</span>
-<span class="c1">//   List(("typ", JString("JWT")), ("alg", JString("HS256")))</span>
+<span class="c1">//   obj = List(("typ", JString(s = "JWT")), ("alg", JString(s = "HS256")))</span>
 <span class="c1">// )</span>
 
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">)</span>
@@ -54,24 +60,32 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// You can decode to JsObject</span>
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res6: util.Try[JObject] = Success(</span>
-<span class="c1">//   JObject(List(("user", JInt(1)), ("nbf", JInt(1431520421))))</span>
+<span class="c1">//   value = JObject(</span>
+<span class="c1">//     obj = List(("user", JInt(num = 1)), ("nbf", JInt(num = 1431520421)))</span>
+<span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decodeJsonAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res7: util.Try[(JObject, JObject, String)] = Success(</span>
-<span class="c1">//   (</span>
-<span class="c1">//     JObject(List(("typ", JString("JWT")), ("alg", JString("HS256")))),</span>
-<span class="c1">//     JObject(List(("user", JInt(1)), ("nbf", JInt(1431520421)))),</span>
+<span class="c1">//   value = (</span>
+<span class="c1">//     JObject(</span>
+<span class="c1">//       obj = List(("typ", JString(s = "JWT")), ("alg", JString(s = "HS256")))</span>
+<span class="c1">//     ),</span>
+<span class="c1">//     JObject(</span>
+<span class="c1">//       obj = List(("user", JInt(num = 1)), ("nbf", JInt(num = 1431520421)))</span>
+<span class="c1">//     ),</span>
 <span class="c1">//     "VmfmoqRbRvna9lfpCx4lXf96eD_X_woBM0twLjBGLlQ"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="c1">// Or to case classes</span>
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res8: util.Try[pdi.jwt.JwtClaim] = Success(pdi.jwt.JwtClaim@1d288770)</span>
+<span class="c1">// res8: util.Try[pdi.jwt.JwtClaim] = Success(</span>
+<span class="c1">//   value = pdi.jwt.JwtClaim@c847a591</span>
+<span class="c1">// )</span>
 <span class="nv">JwtJson4s</span><span class="o">.</span><span class="py">decodeAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res9: util.Try[(pdi.jwt.JwtHeader, pdi.jwt.JwtClaim, String)] = Success(</span>
-<span class="c1">//   (</span>
-<span class="c1">//     pdi.jwt.JwtHeader@ac020068,</span>
-<span class="c1">//     pdi.jwt.JwtClaim@1d288770,</span>
+<span class="c1">//   value = (</span>
+<span class="c1">//     pdi.jwt.JwtHeader@c72c1ed5,</span>
+<span class="c1">//     pdi.jwt.JwtClaim@c847a591,</span>
 <span class="c1">//     "VmfmoqRbRvna9lfpCx4lXf96eD_X_woBM0twLjBGLlQ"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
