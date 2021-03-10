@@ -81,7 +81,7 @@
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">formatUser</span> <span class="k">=</span> <span class="nv">Json</span><span class="o">.</span><span class="py">format</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span>
-<span class="c1">// formatUser: play.api.libs.json.OFormat[User] = play.api.libs.json.OFormat$$anon$3@fec1c1e</span>
+<span class="c1">// formatUser: play.api.libs.json.OFormat[User] = play.api.libs.json.OFormat$$anon$3@1c3ac608</span>
 
 <span class="c1">// Next, adding it to a new session</span>
 <span class="k">val</span> <span class="nv">session2</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="nc">User</span><span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="s">"Paul"</span><span class="o">))</span>
