@@ -6,7 +6,7 @@
 
 <h3 id="installation">Installation</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-play-json"</span> <span class="o">%</span> <span class="s">"7.0.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-play-json"</span> <span class="o">%</span> <span class="s">"7.1.0"</span>
 </code></pre></div></div>
 
 <h3 id="basic-usage">Basic usage</h3>
@@ -145,8 +145,8 @@
 <span class="nv">Json</span><span class="o">.</span><span class="py">toJson</span><span class="o">(</span><span class="nc">JwtClaim</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">).</span><span class="py">issuedNow</span><span class="o">.</span><span class="py">expiresIn</span><span class="o">(</span><span class="mi">10</span><span class="o">))</span>
 <span class="c1">// res13: play.api.libs.json.JsValue = JsObject(</span>
 <span class="c1">//   underlying = Map(</span>
-<span class="c1">//     "exp" -&gt; JsNumber(value = 1615410470),</span>
-<span class="c1">//     "iat" -&gt; JsNumber(value = 1615410460),</span>
+<span class="c1">//     "exp" -&gt; JsNumber(value = 1615460553),</span>
+<span class="c1">//     "iat" -&gt; JsNumber(value = 1615460543),</span>
 <span class="c1">//     "user" -&gt; JsNumber(value = 1)</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
@@ -161,8 +161,8 @@
 <span class="nc">JwtClaim</span><span class="o">(</span><span class="s">"""{"user":1}"""</span><span class="o">).</span><span class="py">issuedNow</span><span class="o">.</span><span class="py">expiresIn</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="py">toJsValue</span>
 <span class="c1">// res15: play.api.libs.json.JsValue = JsObject(</span>
 <span class="c1">//   underlying = Map(</span>
-<span class="c1">//     "exp" -&gt; JsNumber(value = 1615410470),</span>
-<span class="c1">//     "iat" -&gt; JsNumber(value = 1615410460),</span>
+<span class="c1">//     "exp" -&gt; JsNumber(value = 1615460553),</span>
+<span class="c1">//     "iat" -&gt; JsNumber(value = 1615460543),</span>
 <span class="c1">//     "user" -&gt; JsNumber(value = 1)</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
