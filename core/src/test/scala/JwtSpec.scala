@@ -4,8 +4,9 @@ import pdi.jwt.algorithms._
 import pdi.jwt.exceptions._
 
 import scala.util.Success
+import org.scalatest.TryValues
 
-class JwtSpec extends UnitSpec with Fixture {
+class JwtSpec extends UnitSpec with TryValues with Fixture {
   val afterExpirationJwt: Jwt = Jwt(afterExpirationClock)
   val beforeNotBeforeJwt: Jwt = Jwt(beforeNotBeforeClock)
   val afterNotBeforeJwt: Jwt = Jwt(afterNotBeforeClock)
@@ -169,19 +170,21 @@ class JwtSpec extends UnitSpec with Fixture {
     it("should validate correct tokens") {
 
       data foreach { d =>
-        assertResult((), d.algo.fullName) {
-          validTimeJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac())
+        assertResult(true, d.algo.fullName) {
+          validTimeJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac()).isSuccess
         }
         assertResult(true, d.algo.fullName) {
           validTimeJwt.isValid(d.token, secretKey, JwtAlgorithm.allHmac())
         }
-        assertResult((), d.algo.fullName) { validTimeJwt.validate(d.token, secretKeyOf(d.algo)) }
+        assertResult(true, d.algo.fullName) {
+          validTimeJwt.validate(d.token, secretKeyOf(d.algo)).isSuccess
+        }
         assertResult(true, d.algo.fullName) { validTimeJwt.isValid(d.token, secretKeyOf(d.algo)) }
       }
 
       dataRSA foreach { d =>
-        assertResult((), d.algo.fullName) {
-          validTimeJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA())
+        assertResult(true, d.algo.fullName) {
+          validTimeJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA()).isSuccess
         }
         assertResult(true, d.algo.fullName) {
           validTimeJwt.isValid(d.token, publicKeyRSA, JwtAlgorithm.allRSA())
@@ -189,8 +192,8 @@ class JwtSpec extends UnitSpec with Fixture {
       }
 
       dataEdDSA foreach { d =>
-        assertResult((), d.algo.fullName) {
-          validTimeJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
+        assertResult(true, d.algo.fullName) {
+          validTimeJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA()).isSuccess
         }
         assertResult(true, d.algo.fullName) {
           validTimeJwt.isValid(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
@@ -220,7 +223,7 @@ class JwtSpec extends UnitSpec with Fixture {
       val tokens = Seq("1", "abcde", "", "a.b.c.d")
 
       tokens.foreach { token =>
-        intercept[JwtLengthException] { Jwt.validate(token, secretKey, JwtAlgorithm.allHmac()) }
+        assert(Jwt.validate(token, secretKey, JwtAlgorithm.allHmac()).isFailure)
         assertResult(false, token) { Jwt.isValid(token, secretKey, JwtAlgorithm.allHmac()) }
       }
     }
@@ -229,42 +232,34 @@ class JwtSpec extends UnitSpec with Fixture {
       val tokens = Seq("a.b", "a.b.c", "1.2.3", "abcde.azer.azer", "aze$.azer.azer")
 
       tokens.foreach { token =>
-        intercept[IllegalArgumentException] {
-          Jwt.validate(token, secretKey, JwtAlgorithm.allHmac())
-        }
+        assert(Jwt.validate(token, secretKey, JwtAlgorithm.allHmac()).isFailure)
         assertResult(false, token) { Jwt.isValid(token, secretKey, JwtAlgorithm.allHmac()) }
       }
     }
 
     it("should invalidate expired tokens") {
       data foreach { d =>
-        intercept[JwtExpirationException] {
-          afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac())
-        }
+        assert(afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac()).isFailure)
         assertResult(false, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKey, JwtAlgorithm.allHmac())
         }
-        intercept[JwtExpirationException] {
-          afterExpirationJwt.validate(d.token, secretKeyOf(d.algo))
-        }
+        assert(afterExpirationJwt.validate(d.token, secretKeyOf(d.algo)).isFailure)
         assertResult(false, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKeyOf(d.algo))
         }
       }
 
       dataRSA foreach { d =>
-        intercept[JwtExpirationException] {
-          afterExpirationJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA())
-        }
+        assert(afterExpirationJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA()).isFailure)
         assertResult(false, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyRSA, JwtAlgorithm.allRSA())
         }
       }
 
       dataEdDSA foreach { d =>
-        intercept[JwtExpirationException] {
-          afterExpirationJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
-        }
+        assert(
+          afterExpirationJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA()).isFailure
+        )
         assertResult(false, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
         }
@@ -275,25 +270,35 @@ class JwtSpec extends UnitSpec with Fixture {
       val options = JwtOptions(leeway = 60)
 
       data foreach { d =>
-        afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac(), options)
+        assert(
+          afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac(), options).isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKey, JwtAlgorithm.allHmac(), options)
         }
-        afterExpirationJwt.validate(d.token, secretKeyOf(d.algo), options)
+        assert(afterExpirationJwt.validate(d.token, secretKeyOf(d.algo), options).isSuccess)
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKeyOf(d.algo), options)
         }
       }
 
       dataRSA foreach { d =>
-        afterExpirationJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
+        assert(
+          afterExpirationJwt
+            .validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
+            .isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
         }
       }
 
       dataEdDSA foreach { d =>
-        afterExpirationJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+        assert(
+          afterExpirationJwt
+            .validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+            .isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
         }
@@ -305,13 +310,11 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, secretKey, d.algo)
 
-        intercept[JwtNotBeforeException] {
-          beforeNotBeforeJwt.validate(token, secretKey, JwtAlgorithm.allHmac())
-        }
+        assert(beforeNotBeforeJwt.validate(token, secretKey, JwtAlgorithm.allHmac()).isFailure)
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, secretKey, JwtAlgorithm.allHmac())
         }
-        intercept[JwtNotBeforeException] { beforeNotBeforeJwt.validate(token, secretKeyOf(d.algo)) }
+        assert(beforeNotBeforeJwt.validate(token, secretKeyOf(d.algo)).isFailure)
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, secretKeyOf(d.algo))
         }
@@ -321,9 +324,7 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyRSA, d.algo)
 
-        intercept[JwtNotBeforeException] {
-          beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA())
-        }
+        assert(beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA()).isFailure)
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyRSA, JwtAlgorithm.allRSA())
         }
@@ -333,9 +334,9 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyEd25519, d.algo)
 
-        intercept[JwtNotBeforeException] {
-          beforeNotBeforeJwt.validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
-        }
+        assert(
+          beforeNotBeforeJwt.validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA()).isFailure
+        )
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
         }
@@ -363,9 +364,7 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyRSA, d.algo)
 
-        intercept[JwtNotBeforeException] {
-          beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA())
-        }
+        assert(beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA()).isFailure)
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyRSA, JwtAlgorithm.allRSA())
         }
@@ -375,9 +374,9 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyEd25519, d.algo)
 
-        intercept[JwtNotBeforeException] {
-          beforeNotBeforeJwt.validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
-        }
+        assert(
+          beforeNotBeforeJwt.validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA()).isFailure
+        )
         assertResult(false, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyEd25519, JwtAlgorithm.allEdDSA())
         }
@@ -386,9 +385,9 @@ class JwtSpec extends UnitSpec with Fixture {
 
     it("should invalidate wrong keys") {
       data foreach { d =>
-        intercept[JwtValidationException] {
-          validTimeJwt.validate(d.token, "wrong key", JwtAlgorithm.allHmac())
-        }
+        assert(
+          validTimeJwt.validate(d.token, "wrong key", JwtAlgorithm.allHmac()).isFailure
+        )
         assertResult(false, d.algo.fullName) {
           validTimeJwt.isValid(d.token, "wrong key", JwtAlgorithm.allHmac())
         }
@@ -409,27 +408,21 @@ class JwtSpec extends UnitSpec with Fixture {
 
     it("should fail on non-exposed algorithms") {
       data foreach { d =>
-        intercept[JwtValidationException] {
-          validTimeJwt.validate(d.token, secretKey, Seq.empty[JwtHmacAlgorithm])
-        }
+        assert(validTimeJwt.validate(d.token, secretKey, Seq.empty[JwtHmacAlgorithm]).isFailure)
         assertResult(false, d.algo.fullName) {
           validTimeJwt.isValid(d.token, secretKey, Seq.empty[JwtHmacAlgorithm])
         }
       }
 
       data foreach { d =>
-        intercept[JwtValidationException] {
-          validTimeJwt.validate(d.token, secretKey, JwtAlgorithm.allRSA())
-        }
+        assert(validTimeJwt.validate(d.token, secretKey, JwtAlgorithm.allRSA()).isFailure)
         assertResult(false, d.algo.fullName) {
           validTimeJwt.isValid(d.token, secretKey, JwtAlgorithm.allRSA())
         }
       }
 
       dataRSA foreach { d =>
-        intercept[JwtValidationException] {
-          validTimeJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allHmac())
-        }
+        assert(validTimeJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allHmac()).isFailure)
         assertResult(false, d.algo.fullName) {
           validTimeJwt.isValid(d.token, publicKeyRSA, JwtAlgorithm.allHmac())
         }
@@ -452,25 +445,35 @@ class JwtSpec extends UnitSpec with Fixture {
       val options = JwtOptions(expiration = false)
 
       data foreach { d =>
-        afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac(), options)
+        assert(
+          afterExpirationJwt.validate(d.token, secretKey, JwtAlgorithm.allHmac(), options).isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKey, JwtAlgorithm.allHmac(), options)
         }
-        afterExpirationJwt.validate(d.token, secretKeyOf(d.algo), options)
+        assert(afterExpirationJwt.validate(d.token, secretKeyOf(d.algo), options).isSuccess)
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, secretKeyOf(d.algo), options)
         }
       }
 
       dataRSA foreach { d =>
-        afterExpirationJwt.validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
+        assert(
+          afterExpirationJwt
+            .validate(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
+            .isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
         }
       }
 
       dataEdDSA foreach { d =>
-        afterExpirationJwt.validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+        assert(
+          afterExpirationJwt
+            .validate(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+            .isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           afterExpirationJwt.isValid(d.token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
         }
@@ -484,11 +487,13 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, secretKey, d.algo)
 
-        beforeNotBeforeJwt.validate(token, secretKey, JwtAlgorithm.allHmac(), options)
+        assert(
+          beforeNotBeforeJwt.validate(token, secretKey, JwtAlgorithm.allHmac(), options).isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, secretKey, JwtAlgorithm.allHmac(), options)
         }
-        beforeNotBeforeJwt.validate(token, secretKeyOf(d.algo), options)
+        assert(beforeNotBeforeJwt.validate(token, secretKeyOf(d.algo), options).isSuccess)
         assertResult(true, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, secretKeyOf(d.algo), options)
         }
@@ -498,7 +503,9 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyRSA, d.algo)
 
-        beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
+        assert(
+          beforeNotBeforeJwt.validate(token, publicKeyRSA, JwtAlgorithm.allRSA(), options).isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyRSA, JwtAlgorithm.allRSA(), options)
         }
@@ -508,7 +515,11 @@ class JwtSpec extends UnitSpec with Fixture {
         val claimNotBefore = claimClass.startsAt(notBefore)
         val token = beforeNotBeforeJwt.encode(claimNotBefore, privateKeyEd25519, d.algo)
 
-        beforeNotBeforeJwt.validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+        assert(
+          beforeNotBeforeJwt
+            .validate(token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
+            .isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           beforeNotBeforeJwt.isValid(token, publicKeyEd25519, JwtAlgorithm.allEdDSA(), options)
         }
@@ -519,7 +530,9 @@ class JwtSpec extends UnitSpec with Fixture {
       val options = JwtOptions(signature = false)
 
       data foreach { d =>
-        validTimeJwt.validate(d.token, "wrong key", JwtAlgorithm.allHmac(), options)
+        assert(
+          validTimeJwt.validate(d.token, "wrong key", JwtAlgorithm.allHmac(), options).isSuccess
+        )
         assertResult(true, d.algo.fullName) {
           validTimeJwt.isValid(d.token, "wrong key", JwtAlgorithm.allHmac(), options)
         }
