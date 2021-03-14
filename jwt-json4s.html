@@ -6,12 +6,13 @@
 
 <h3 id="installation">Installation</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-json4s-native"</span> <span class="o">%</span> <span class="s">"7.1.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-json4s-native"</span> <span class="o">%</span> <span class="s">"7.1.1"</span>
 </code></pre></div></div>
 
 <h3 id="basic-usage">Basic usage</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">JwtJson4s</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">},</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">JsonDSL</span><span class="o">.</span><span class="py">WithBigDecimal</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">native</span><span class="o">.</span><span class="py">JsonMethods</span><span class="o">.</span><span class="py">_</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">JwtJson4s</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">},</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="nv">org</span><span class="o">.</span><span class="py">json4s</span><span class="o">.</span><span class="py">JsonDSL</span><span class="o">.</span><span class="py">WithBigDecimal</span><span class="o">.</span><span class="py">_</span>
+
 <span class="k">val</span> <span class="nv">claim</span> <span class="k">=</span> <span class="nc">JObject</span><span class="o">((</span><span class="s">"user"</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">"nbf"</span><span class="o">,</span> <span class="mi">1431520421</span><span class="o">))</span>
 <span class="c1">// claim: JObject = JObject(</span>
 <span class="c1">//   obj = List(("user", JInt(num = 1)), ("nbf", JInt(num = 1431520421)))</span>

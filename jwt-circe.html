@@ -6,7 +6,7 @@
 
 <h3 id="installation">Installation</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-circe"</span> <span class="o">%</span> <span class="s">"7.1.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-circe"</span> <span class="o">%</span> <span class="s">"7.1.1"</span>
 </code></pre></div></div>
 
 <h3 id="basic-usage">Basic usage</h3>
@@ -18,29 +18,28 @@
     <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">)</span>
   <span class="o">,</span> <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@b960e0cc</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@3eda66b0</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">algo</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span>
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMyNDYwNDYsImlhdCI6MTYxNTQ2MTI4Nn0.zCEMf2QkCeil7_A6l-XXDqCg4o0MD5p8Gqr8Eox06Sk"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzM1MzU2MjEsImlhdCI6MTYxNTc1MDg2MX0.Gl_V149sRhqcTbeOaft_sDBbV9fHjWJal4X33K6C6DI"</span>
 
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res1: util.Try[io.circe.Json] = Success(</span>
-<span class="c1">//   value = JObject(value = object[exp -&gt; 1773246046,iat -&gt; 1615461286])</span>
+<span class="c1">//   value = JObject(value = object[exp -&gt; 1773535621,iat -&gt; 1615750861])</span>
 <span class="c1">// )</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res2: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@b960e0cc)</span>
+<span class="c1">// res2: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@3eda66b0)</span>
 </code></pre></div></div>
 
 <h3 id="encoding">Encoding</h3>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.time.Instant</span>
-<span class="k">import</span> <span class="nn">cats.syntax.either._</span>
-<span class="k">import</span> <span class="nn">io.circe._</span><span class="o">,</span> <span class="nv">syntax</span><span class="o">.</span><span class="py">_</span><span class="o">,</span> <span class="n">jawn</span><span class="o">.{</span><span class="n">parse</span> <span class="k">=&gt;</span> <span class="n">jawnParse</span><span class="o">}</span>
-<span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">JwtCirce</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">,</span> <span class="nc">JwtClaim</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">io.circe._</span><span class="o">,</span> <span class="n">jawn</span><span class="o">.{</span><span class="n">parse</span> <span class="k">=&gt;</span> <span class="n">jawnParse</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">pdi.jwt.</span><span class="o">{</span><span class="nc">JwtCirce</span><span class="o">,</span> <span class="nc">JwtAlgorithm</span><span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
@@ -48,16 +47,16 @@
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">Right</span><span class="o">(</span><span class="n">claimJson</span><span class="o">)</span> <span class="k">=</span> <span class="nf">jawnParse</span><span class="o">(</span><span class="n">s</span><span class="s">"""{"expires":${Instant.now.getEpochSecond}}"""</span><span class="o">)</span>
-<span class="c1">// claimJson: Json = JObject(value = object[expires -&gt; 1615461286])</span>
+<span class="c1">// claimJson: Json = JObject(value = object[expires -&gt; 1615750861])</span>
 <span class="k">val</span> <span class="nv">Right</span><span class="o">(</span><span class="n">header</span><span class="o">)</span> <span class="k">=</span> <span class="nf">jawnParse</span><span class="o">(</span> <span class="s">"""{"typ":"JWT","alg":"HS256"}"""</span><span class="o">)</span>
 <span class="c1">// header: Json = JObject(value = object[typ -&gt; "JWT",alg -&gt; "HS256"])</span>
 <span class="c1">// From just the claim to all possible attributes</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claimJson</span><span class="o">)</span>
-<span class="c1">// res4: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE1NDYxMjg2fQ."</span>
+<span class="c1">// res4: String = "eyJhbGciOiJub25lIn0.eyJleHBpcmVzIjoxNjE1NzUwODYxfQ."</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claimJson</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// res5: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NDYxMjg2fQ.AopKpHXlSS4Bo3XyUfnt-8szUe9eu7raqVv0RaJwE2A"</span>
+<span class="c1">// res5: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NzUwODYxfQ.RXjMH1kTbxgH8v3fxq1AByeO8ZmX98Pvkm2B5MN3W0g"</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">header</span><span class="o">,</span> <span class="n">claimJson</span><span class="o">,</span> <span class="n">key</span><span class="o">)</span>
-<span class="c1">// res6: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NDYxMjg2fQ.AopKpHXlSS4Bo3XyUfnt-8szUe9eu7raqVv0RaJwE2A"</span>
+<span class="c1">// res6: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzIjoxNjE1NzUwODYxfQ.RXjMH1kTbxgH8v3fxq1AByeO8ZmX98Pvkm2B5MN3W0g"</span>
 </code></pre></div></div>
 
 <h3 id="decoding">Decoding</h3>
@@ -69,37 +68,37 @@
     <span class="n">expiration</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">plusSeconds</span><span class="o">(</span><span class="mi">157784760</span><span class="o">).</span><span class="py">getEpochSecond</span><span class="o">)</span>
   <span class="o">,</span> <span class="n">issuedAt</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nv">Instant</span><span class="o">.</span><span class="py">now</span><span class="o">.</span><span class="py">getEpochSecond</span><span class="o">)</span>
 <span class="o">)</span>
-<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@b960e0cc</span>
+<span class="c1">// claim: JwtClaim = pdi.jwt.JwtClaim@3eda66b0</span>
 <span class="k">val</span> <span class="nv">key</span> <span class="k">=</span> <span class="s">"secretKey"</span>
 <span class="c1">// key: String = "secretKey"</span>
 <span class="k">val</span> <span class="nv">algo</span> <span class="k">=</span> <span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span>
 <span class="c1">// algo: JwtAlgorithm.HS256.type = HS256</span>
 
 <span class="k">val</span> <span class="nv">token</span> <span class="k">=</span> <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">encode</span><span class="o">(</span><span class="n">claim</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">algo</span><span class="o">)</span>
-<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzMyNDYwNDYsImlhdCI6MTYxNTQ2MTI4Nn0.zCEMf2QkCeil7_A6l-XXDqCg4o0MD5p8Gqr8Eox06Sk"</span>
+<span class="c1">// token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzM1MzU2MjEsImlhdCI6MTYxNTc1MDg2MX0.Gl_V149sRhqcTbeOaft_sDBbV9fHjWJal4X33K6C6DI"</span>
 
 <span class="c1">// You can decode to JsObject</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decodeJson</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res8: util.Try[io.circe.Json] = Success(</span>
-<span class="c1">//   value = JObject(value = object[exp -&gt; 1773246046,iat -&gt; 1615461286])</span>
+<span class="c1">//   value = JObject(value = object[exp -&gt; 1773535621,iat -&gt; 1615750861])</span>
 <span class="c1">// )</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decodeJsonAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res9: util.Try[(io.circe.Json, io.circe.Json, String)] = Success(</span>
 <span class="c1">//   value = (</span>
 <span class="c1">//     JObject(value = object[typ -&gt; "JWT",alg -&gt; "HS256"]),</span>
-<span class="c1">//     JObject(value = object[exp -&gt; 1773246046,iat -&gt; 1615461286]),</span>
-<span class="c1">//     "zCEMf2QkCeil7_A6l-XXDqCg4o0MD5p8Gqr8Eox06Sk"</span>
+<span class="c1">//     JObject(value = object[exp -&gt; 1773535621,iat -&gt; 1615750861]),</span>
+<span class="c1">//     "Gl_V149sRhqcTbeOaft_sDBbV9fHjWJal4X33K6C6DI"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 <span class="c1">// Or to case classes</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decode</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
-<span class="c1">// res10: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@b960e0cc)</span>
+<span class="c1">// res10: util.Try[JwtClaim] = Success(value = pdi.jwt.JwtClaim@3eda66b0)</span>
 <span class="nv">JwtCirce</span><span class="o">.</span><span class="py">decodeAll</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">(</span><span class="nv">JwtAlgorithm</span><span class="o">.</span><span class="py">HS256</span><span class="o">))</span>
 <span class="c1">// res11: util.Try[(pdi.jwt.JwtHeader, JwtClaim, String)] = Success(</span>
 <span class="c1">//   value = (</span>
 <span class="c1">//     pdi.jwt.JwtHeader@c72c1ed5,</span>
-<span class="c1">//     pdi.jwt.JwtClaim@b960e0cc,</span>
-<span class="c1">//     "zCEMf2QkCeil7_A6l-XXDqCg4o0MD5p8Gqr8Eox06Sk"</span>
+<span class="c1">//     pdi.jwt.JwtClaim@3eda66b0,</span>
+<span class="c1">//     "Gl_V149sRhqcTbeOaft_sDBbV9fHjWJal4X33K6C6DI"</span>
 <span class="c1">//   )</span>
 <span class="c1">// )</span>
 </code></pre></div></div>

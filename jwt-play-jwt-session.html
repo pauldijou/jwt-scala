@@ -2,7 +2,7 @@
 
 <h3 id="installation">Installation</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-play"</span> <span class="o">%</span> <span class="s">"7.1.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.jwt-scala"</span> <span class="o">%%</span> <span class="s">"jwt-play"</span> <span class="o">%</span> <span class="s">"7.1.1"</span>
 </code></pre></div></div>
 
 <p>Provides an API similar to the Play <a href="https://www.playframework.com/documentation/2.3.x/api/scala/index.html#play.api.mvc.Session">Session</a> but using <code class="language-plaintext highlighter-rouge">JsValue</code> rather than <code class="language-plaintext highlighter-rouge">String</code> as values. It also separates <code class="language-plaintext highlighter-rouge">headerData</code> from <code class="language-plaintext highlighter-rouge">claimData</code> rather than having only one <code class="language-plaintext highlighter-rouge">data</code>.</p>
@@ -54,7 +54,7 @@
 
 <span class="c1">// Test if the session is empty or not</span>
 <span class="c1">// (it is not here since we have several keys in the claimData)</span>
-<span class="nv">session</span><span class="o">.</span><span class="py">isEmpty</span>
+<span class="nv">session</span><span class="o">.</span><span class="py">isEmpty</span><span class="o">()</span>
 <span class="c1">// res5: Boolean = false</span>
 
 <span class="c1">// Serializing the session is the same as encoding it as a JSON Web Token</span>
@@ -82,7 +82,7 @@
 <span class="c1">// You could refresh the session to set its expiration in a few seconds from now</span>
 <span class="c1">// but you need to set "session.maxAge" in your "application.conf" and since this</span>
 <span class="c1">// is not a real Play application, we cannot do that, so here, the refresh will do nothing.</span>
-<span class="n">session</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">refresh</span>
+<span class="n">session</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">refresh</span><span class="o">()</span>
 </code></pre></div></div>
 
 <h3 id="using-implicits">Using implicits</h3>
@@ -91,12 +91,11 @@
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// First, creating the implicits</span>
 <span class="k">import</span> <span class="nn">play.api.libs.json.Json</span>
-<span class="k">import</span> <span class="nn">play.api.libs.functional.syntax._</span>
 <span class="k">import</span> <span class="nn">pdi.jwt.JwtSession</span>
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">formatUser</span> <span class="k">=</span> <span class="nv">Json</span><span class="o">.</span><span class="py">format</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span>
-<span class="c1">// formatUser: play.api.libs.json.OFormat[User] = play.api.libs.json.OFormat$$anon$3@26afe294</span>
+<span class="c1">// formatUser: play.api.libs.json.OFormat[User] = play.api.libs.json.OFormat$$anon$3@2716c4f</span>
 
 <span class="c1">// Next, adding it to a new session</span>
 <span class="k">val</span> <span class="nv">session2</span> <span class="k">=</span> <span class="nc">JwtSession</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="nc">User</span><span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="s">"Paul"</span><span class="o">))</span>
@@ -129,9 +128,8 @@
 
 <p>You can extract a <code class="language-plaintext highlighter-rouge">JwtSession</code> from a <code class="language-plaintext highlighter-rouge">RequestHeader</code>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt._</span>
-<span class="k">import</span> <span class="nn">pdi.jwt.JwtSession._</span>
-<span class="k">import</span> <span class="nn">play.api.test.</span><span class="o">{</span><span class="nc">FakeRequest</span><span class="o">,</span> <span class="nc">FakeHeaders</span><span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">pdi.jwt.JwtSession._</span>
+<span class="k">import</span> <span class="nn">play.api.test.FakeRequest</span>
 
 <span class="k">import</span> <span class="nn">play.api.Configuration</span>
 
