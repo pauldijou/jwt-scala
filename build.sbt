@@ -79,6 +79,8 @@ val scala3 = "3.0.0-RC1"
 val crossVersionAll = Seq(scala212, scala213, scala3)
 val crossVersion2Only = Seq(scala212, scala213)
 
+ThisBuild / resolvers += Resolver.JCenterRepository
+
 val baseSettings = Seq(
   organization := "com.github.jwt-scala",
   version := buildVersion,
